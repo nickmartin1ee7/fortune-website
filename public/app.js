@@ -2,10 +2,14 @@
 document.addEventListener("DOMContentLoaded", () => {
   const generateButton = document.getElementById("generateButton");
   const fortuneText = document.getElementById("fortuneText");
+  const loader = document.querySelector(".loader-container");
+
+  loader.style.display = "none";
 
   generateButton.addEventListener("click", async () => {
-    var button = document.getElementById("generateButton");
-    button.disabled = true;
+    generateButton.disabled = true;
+    loader.style.display = "block";
+
     try {
       // Make a GET request to your server's endpoint, which will proxy the external API
       const response = await fetch("/get-fortune");
@@ -16,6 +20,8 @@ document.addEventListener("DOMContentLoaded", () => {
     } catch (error) {
       console.error("Error fetching fortune:", error);
     }
-    button.disabled = false;
+
+    generateButton.disabled = false;
+    loader.style.display = "none";
   });
 });
